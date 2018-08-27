@@ -17,15 +17,18 @@ ADD info.php /var/www
 RUN service nginx stop
 RUN service nginx start
 RUN nginx -t
+RUN sed -i 's/ExecStart=\/usr\/sbin\/php-fpm7.0/ExecStart=\/usr\/sbin\/php-fpm7.0 --allow-to-run-as-root/' /etc/systemd/system/multi-user.target.wants/php7.0-fpm.service
 RUN service php7.0-fpm start
+RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 
 # create project directory, mount this to your local filesystem later
 RUN mkdir -p /var/www/project
 
 RUN chown -R www-data /var/www/ice
+RUN chmod 757 /var/www/ice
 # set /app as default working directory
 WORKDIR /var/www/project
 
 EXPOSE 80
 
-CMD ["nginx", "-g", "daemon off;"]
+CMD /etc/init.d/php7.0-fpm start; nginx;
