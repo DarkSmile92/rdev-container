@@ -1,37 +1,31 @@
-FROM node
-
-# create app directory
-RUN mkdir -p /app
-
-# create ACE editor directory
-RUN mkdir -p /ace
-
-# set /ace as default working directory
-WORKDIR /ace
-
-ADD index.html /ace/
+FROM rdev-base
 
 # install git
 RUN apt-get install git -y
 
 # clone ace
-RUN git clone https://github.com/ajaxorg/ace.git /ace
+#RUN git clone https://github.com/ajaxorg/ace.git /ace
+RUN git clone https://github.com/mattpass/ICEcoder.git /var/www/ice
 
-RUN npm i
-
-# install nginx
-RUN apt-get update
-RUN apt-get install nginx -y
+# set /ace as default working directory
+WORKDIR /var/www
 
 # add config file
-ADD nginx.site /etc/nginx/sites-available/default
+ADD default /etc/nginx/sites-available/
+ADD info.php /var/www
 
-RUN systemctl stop nginx
-RUN systemctl start nginx
+RUN service nginx stop
+RUN service nginx start
+RUN nginx -t
+RUN service php7.0-fpm start
 
+# create project directory, mount this to your local filesystem later
+RUN mkdir -p /var/www/project
 
+RUN chown -R www-data /var/www/ice
 # set /app as default working directory
-WORKDIR /app
+WORKDIR /var/www/project
 
-EXPOSE 8888
+EXPOSE 80
 
+CMD ["nginx", "-g", "daemon off;"]
