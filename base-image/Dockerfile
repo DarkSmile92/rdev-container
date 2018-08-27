@@ -31,7 +31,7 @@ RUN apt-get install nginx -y
 # install php
 RUN apt-get install php -y
 RUN apt-get install php-fpm -y
-RUN apt-get install -y php-bcmath php-bz2 php-intl php-gd php-mbstring php-mcrypt php-mysql php-zip
+RUN apt-get install -y php-bcmath php-bz2 php-intl php-gd php-mbstring php-mcrypt php-mysql php-zip php7.0-xml
 RUN apt-get install libapache2-mod-php -y
 
 # Cleanup

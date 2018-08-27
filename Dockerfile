@@ -24,8 +24,8 @@ RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 # create project directory, mount this to your local filesystem later
 RUN mkdir -p /var/www/project
 
-RUN chown -R www-data /var/www/ice
-RUN chmod 757 /var/www/ice
+RUN chmod 757 /var/www
+RUN chown -R www-data /var/www
 # set /app as default working directory
 WORKDIR /var/www/project
 
