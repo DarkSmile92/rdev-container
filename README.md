@@ -6,8 +6,10 @@ You are ready to develop with the [ICECoder Browser IDE](https://icecoder.net/).
 The idea was to migrate away from cloud9 and still have isolated development environments as containers.
 Docker seemed the right choice for this task and [ICECoder](https://icecoder.net/) looked nice with minimal dependencies.
 
-## Build base image and image in one command
-    ./build.sh
+## Quickstart
+Build base image and image in one command and then run it
+
+    sudo ./build.sh && sudo docker run -p 80:80 -d rdev-container
 
 ## Build the base image
     cd base-image && sudo docker build -t rdev-base . && cd ..
