@@ -1,5 +1,7 @@
 FROM rdev-base
 
+RUN apt-get install php-patchwork-utf8 php7.0-mbstring php7.0-xml -y
+
 # install git
 RUN apt-get install git -y
 
